@@ -28,6 +28,9 @@ You're the boss, so have fun editing!
 .center {
 	text-align: center;
 }
+#fwslider .slide img {
+	opacity: 0.5;
+}
 
 
 

@@ -104,10 +104,43 @@ function ShowAssistanceMedals()
     $showmedals .= '<i class="fa fa-certificate" aria-hidden="true"></i> ';
   }
 
-  $update = ' <br><div class="assistance"><strong>Asistencias a ediciones de EBE: ' . $showmedals . '</strong></div>';
-// $update .= ' <br><span style="color:red">logged_in: ' . bp_loggedin_user_id() . '</span> | <span style="color:orange">asistencias: ' . $asistencias . '</span>';
+  if ( $showmedals == '' ) {
+    $showmedals = 'Aún no ha asistido a ninguna edición';
+  }
+
+  $output = ' <br><div class="assistance"><strong>Asistencias a ediciones de EBE: ' . $showmedals . '</strong></div>';
+// $output .= ' <br><span style="color:red">logged_in: ' . bp_loggedin_user_id() . '</span> | <span style="color:orange">asistencias: ' . $asistencias . '</span>';
  
-    echo $update;
+    echo $output;
 }
 
 add_action( 'bp_after_member_header', 'ShowAssistanceMedals', 10, 1 );
+
+
+/**
+ * Redirect user after successful login.
+ *
+ * @param string $redirect_to URL to redirect to.
+ * @param string $request URL the user is coming from.
+ * @param object $user Logged user's data.
+ * @return string
+ */
+function my_login_redirect( $redirect_to, $request, $user ) {
+  //is there a user to check?
+  if ( isset( $user->roles ) && is_array( $user->roles ) ) {
+    //check for admins
+    if ( in_array( 'administrator', $user->roles ) ) {
+      // redirect them to the default place
+      return $redirect_to;
+
+    } else {
+      return home_url();
+
+    }
+
+  } else {
+    return $redirect_to;
+
+  }
+}
+add_filter( 'login_redirect', 'my_login_redirect', 10, 3 );
