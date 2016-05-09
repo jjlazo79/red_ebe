@@ -48,6 +48,20 @@ function buddyboss_child_scripts_styles()
    * Styles
    */
   wp_enqueue_style( 'buddyboss-child-custom', get_stylesheet_directory_uri().'/css/custom.css' );
+
+  /*
+   * Conditional styles for Ponentes and Coordinadores
+   */
+  $perfil  = xprofile_get_field_data( 'perfil', bp_displayed_user_id(), $multi_format = 'comma' );
+
+  if ( $perfil == 'Ponente' ) {
+    wp_enqueue_style( 'buddyboss-child-ponente', get_stylesheet_directory_uri().'/css/style-ponente.css' );
+
+  } elseif ( $perfil == 'Coordinador' ) {
+    wp_enqueue_style( 'buddyboss-child-coordinador', get_stylesheet_directory_uri().'/css/style-coordinador.css' );
+
+  }
+
 }
 add_action( 'wp_enqueue_scripts', 'buddyboss_child_scripts_styles', 9999 );
 
@@ -57,7 +71,43 @@ add_action( 'wp_enqueue_scripts', 'buddyboss_child_scripts_styles', 9999 );
 // Add your own custom functions here
 
 
+/**
+ * Add Perfil to activity
+ * 
+ * @return html
+ */
+function job_title_activity_action( $action, $activity, $r)
+{
+  // Get some values
+  $bp_job_title = bp_get_profile_field_data( 'field=Perfil&user_id=' . bp_get_activity_user_id());
+  $job_title = '</a> <span style="color:red;" class="perfil-user">(' . $bp_job_title . ')</span>';
+  $action = str_replace( '</a>', $job_title, $action);
+
+    return $action;
+}
+add_filter( 'bp_get_activity_action_pre_meta', 'job_title_activity_action', 1, 3 );
 
 
+/**
+ * Show medals for assistance number.
+ * 
+ * @return html
+ */
+function ShowAssistanceMedals()
+{
+  // Get some values
+  $asistencias = xprofile_get_field_data( 'Asistencias a EBEs', bp_displayed_user_id() );
+  $showmedals = '';
 
-?>
+  // We iterate over the attendances to display a medal for each
+  for ($i=0; $i < $asistencias; $i++) { 
+    $showmedals .= '<i class="fa fa-certificate" aria-hidden="true"></i> ';
+  }
+
+  $update = ' <br><div class="assistance"><strong>Asistencias a ediciones de EBE: ' . $showmedals . '</strong></div>';
+// $update .= ' <br><span style="color:red">logged_in: ' . bp_loggedin_user_id() . '</span> | <span style="color:orange">asistencias: ' . $asistencias . '</span>';
+ 
+    echo $update;
+}
+
+add_action( 'bp_after_member_header', 'ShowAssistanceMedals', 10, 1 );

@@ -25,11 +25,9 @@ You're the boss, so have fun editing!
 
 
 
-/*
-.just_an_example {
-	color: black;
+.center {
+	text-align: center;
 }
-*/
 
 
 
@@ -80,11 +78,17 @@ You're the boss, so have fun editing!
 @media screen and (min-width: 721px)  {
 
 
-	/*
-	.just_an_example {
-		color: black;
+	.center-content {
+		width: 100%;
 	}
-	*/
+	.left-content {
+		width: 45%;
+		float: left;
+	}
+	.right-content {
+		width: 45%;
+		float: right;
+	}
 
 
 }/* don't delete this closing bracket */
