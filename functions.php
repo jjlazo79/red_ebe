@@ -118,6 +118,41 @@ add_action( 'bp_after_member_header', 'ShowAssistanceMedals', 10, 1 );
 
 
 /**
+ * Show Twitter timeline
+ *
+ * @return html
+ */
+function ShowTwitterTimeline()
+{
+  // Gets some values
+  $twitter_user   = xprofile_get_field_data( 'Usuario de Twitter', bp_displayed_user_id() );
+  $twitter_widget = xprofile_get_field_data( 'Widget ID', bp_displayed_user_id() );
+  // Extract widget ID from string
+  $widget_pre_id  = strstr($twitter_widget,'data-widget-id="');
+  // Create a function for extrar only numbers
+  function get_numerics ($str) {
+    preg_match_all('/\d+/', $str, $matches);
+    return $matches[0];
+  }
+
+  $widget_post_id = get_numerics( $widget_pre_id );
+  $widget_id      = $widget_post_id[0];
+
+  $output = '<a class="twitter-timeline"
+            data-widget-id="' . $widget_id . '"
+            href="https://twitter.com/' . $twitter_user . '"
+            data-screen-name="' . $twitter_user . '">
+            Tweets de @' . $twitter_user . '
+            </a>';
+
+  $output .= '<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?\'http\':\'https\';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>';
+
+  echo $output;
+}
+add_action( 'bp_after_member_header', 'ShowTwitterTimeline', 15, 1 );
+
+
+/**
  * Redirect user after successful login.
  *
  * @param string $redirect_to URL to redirect to.
