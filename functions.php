@@ -108,13 +108,51 @@ function ShowAssistanceMedals()
     $showmedals = 'Aún no ha asistido a ninguna edición';
   }
 
-  $output = ' <br><div class="assistance"><strong>Asistencias a ediciones de EBE: ' . $showmedals . '</strong></div>';
+  $output = '<div class="clear"></div>';
+  $output .= '<div class="assistance"><strong>Asistencias a ediciones de EBE: ' . $showmedals . '</strong></div>';
+  $output .= '<div class="clear"></div>';
 // $output .= ' <br><span style="color:red">logged_in: ' . bp_loggedin_user_id() . '</span> | <span style="color:orange">asistencias: ' . $asistencias . '</span>';
  
     echo $output;
 }
-
 add_action( 'bp_after_member_header', 'ShowAssistanceMedals', 10, 1 );
+
+
+/**
+ * Show medals for actions.
+ * 
+ * @return html
+ */
+function ActionsMedals()
+{
+  // Get some values
+  $user         = bp_displayed_user_id();
+  $count        = 0;
+  $group_count  = bp_get_total_group_count_for_user( $user );
+
+  if ( xprofile_get_field_data( 'Usuario de Twitter', $user ) ) {
+    $has_twiter = 'Twitter añadido';
+    $count++;
+  }
+  if ( bp_get_activity_latest_update( $user ) ) {
+    $publish = 'Ha publicado algo';
+    $count++;
+  }
+  if ( $group_count ) {
+    $group = 'Pertenece a ' . $group_count . ' grupos';
+    $count++;
+  }
+
+  $output  = '<div class="clear"></div>';
+  $output   .= '<div class="assistance">';
+  $output     .= '<strong>Medallas por acciones: ' . $count . ' ' . $has_twiter . ' ' . $group . ' ' . $publish . '</strong>';
+  $output   .= '</div>';
+  $output .= '<div class="clear"></div>';
+// $output .= ' <br><span style="color:red">logged_in: ' . bp_loggedin_user_id() . '</span> | <span style="color:orange">asistencias: ' . $asistencias . '</span>';
+ 
+    echo $output;
+}
+add_action( 'bp_after_member_header', 'ActionsMedals', 12, 1 );
 
 
 /**
@@ -126,28 +164,35 @@ function ShowTwitterTimeline()
 {
   // Gets some values
   $twitter_user   = xprofile_get_field_data( 'Usuario de Twitter', bp_displayed_user_id() );
-  $twitter_widget = xprofile_get_field_data( 'Widget ID', bp_displayed_user_id() );
-  // Extract widget ID from string
-  $widget_pre_id  = strstr($twitter_widget,'data-widget-id="');
-  // Create a function for extrar only numbers
-  function get_numerics ($str) {
-    preg_match_all('/\d+/', $str, $matches);
-    return $matches[0];
-  }
+//   $twitter_widget = xprofile_get_field_data( 'Widget ID', bp_displayed_user_id() );
+//   // Extract widget ID from string
+//   $widget_pre_id  = strstr($twitter_widget,'data-widget-id="');
+//   // Create a function for extract only numbers
+//   function get_numerics ($str) {
+//     preg_match_all('/\d+/', $str, $matches);
+//     return $matches[0];
+//   }
 
-  $widget_post_id = get_numerics( $widget_pre_id );
-  $widget_id      = $widget_post_id[0];
-
+//   $widget_post_id = get_numerics( $widget_pre_id );
+//   $widget_id      = $widget_post_id[0];
+  $widget_id = '613998165432365057'; // Por lo visto funciona si a todos les pongo mi Wigdet ID Tócate los huevos.
+  // Make the output
   $output = '<a class="twitter-timeline"
-            data-widget-id="' . $widget_id . '"
             href="https://twitter.com/' . $twitter_user . '"
-            data-screen-name="' . $twitter_user . '">
+            data-widget-id="' . $widget_id . '"
+            data-screen-name="' . $twitter_user . '"
+            data-chrome="nofooter noborders"
+            width="500"
+            height="300">
             Tweets de @' . $twitter_user . '
             </a>';
 
   $output .= '<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?\'http\':\'https\';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>';
-
-  echo $output;
+  // Show the output
+  if ( !empty( $twitter_user ) ) {
+    echo '<div class="timeline-user-twitter">'.$output.'</div><div class="clear"></div>';
+  }
+  
 }
 add_action( 'bp_after_member_header', 'ShowTwitterTimeline', 15, 1 );
 
