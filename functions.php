@@ -108,10 +108,8 @@ function ShowAssistanceMedals()
     $showmedals = 'Aún no ha asistido a ninguna edición';
   }
 
-  $output = '<div class="clear"></div>';
+  $output  = '<div class="clear"></div>';
   $output .= '<div class="assistance"><strong>Asistencias a ediciones de EBE: ' . $showmedals . '</strong></div>';
-  $output .= '<div class="clear"></div>';
-// $output .= ' <br><span style="color:red">logged_in: ' . bp_loggedin_user_id() . '</span> | <span style="color:orange">asistencias: ' . $asistencias . '</span>';
  
     echo $output;
 }
@@ -131,24 +129,22 @@ function ActionsMedals()
   $group_count  = bp_get_total_group_count_for_user( $user );
 
   if ( xprofile_get_field_data( 'Usuario de Twitter', $user ) ) {
-    $has_twiter = 'Twitter añadido';
+    $has_twiter = '| Twitter añadido';
     $count++;
   }
   if ( bp_get_activity_latest_update( $user ) ) {
-    $publish = 'Ha publicado algo';
+    $publish = '| Ha publicado algo';
     $count++;
   }
   if ( $group_count ) {
-    $group = 'Pertenece a ' . $group_count . ' grupos';
+    $group = '| Pertenece a ' . $group_count . ' grupos';
     $count++;
   }
 
-  $output  = '<div class="clear"></div>';
-  $output   .= '<div class="assistance">';
-  $output     .= '<strong>Medallas por acciones: ' . $count . ' ' . $has_twiter . ' ' . $group . ' ' . $publish . '</strong>';
-  $output   .= '</div>';
+  $output  = '<div class="actionsmedals">';
+  $output   .= '<strong>Medallas por acciones: ' . $count . ' ' . $has_twiter . ' ' . $publish . ' ' . $group . '</strong>';
+  $output .= '</div>';
   $output .= '<div class="clear"></div>';
-// $output .= ' <br><span style="color:red">logged_in: ' . bp_loggedin_user_id() . '</span> | <span style="color:orange">asistencias: ' . $asistencias . '</span>';
  
     echo $output;
 }

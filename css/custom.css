@@ -31,6 +31,16 @@ You're the boss, so have fun editing!
 #fwslider .slide img {
 	opacity: 0.5;
 }
+.timeline-user-twitter {
+	float:right;
+	border: solid 1px #51c8ea;
+}
+.cover-photo-on.bp-user #buddypress div#item-nav, body.groups.cover-photo-on #buddypress div#item-nav {
+    top: 320px;
+}
+.actionsmedals {
+    margin-bottom: 10px;
+}
 
 
 
@@ -43,11 +53,9 @@ You're the boss, so have fun editing!
 @media screen and (max-width: 720px) {
 
 
-	/*
-	.just_an_example {
-		color: black;
+	.assistance {
+	    margin-top: 2%;
 	}
-	*/
 
 
 }/* don't delete this closing bracket */
