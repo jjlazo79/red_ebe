@@ -28,6 +28,11 @@ You're the boss, so have fun editing!
 .center {
 	text-align: center;
 }
+/*Login con redes sociales*/
+.oneall_social_login {
+    max-width: 150px;
+    margin: 0 auto;
+}
 /*Oscurecer las imágenes de los sliders*/
 #fwslider .slide img {
 	opacity: 0.5;
