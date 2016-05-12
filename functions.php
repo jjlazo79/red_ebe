@@ -89,6 +89,50 @@ add_filter( 'bp_get_activity_action_pre_meta', 'job_title_activity_action', 1, 3
 
 
 /**
+ * Show Twitter timeline
+ *
+ * @return html
+ */
+function ShowRRSS()
+{
+  // Gets some values
+  $twitter_user  = xprofile_get_field_data( 'Usuario de Twitter', bp_displayed_user_id() );
+  $facebook_user = xprofile_get_field_data( 'Facebook', bp_displayed_user_id() );
+  $google_user   = xprofile_get_field_data( 'Google +', bp_displayed_user_id() );
+
+  $output  = '<div class="clear"></div>';
+  $output .= '<div class="profile-icons"><ul class="social-icons">';
+
+  if ( !empty( $twitter_user ) ) {
+    $output .=
+    '<li>
+      <a class="link-twitter" title="Twitter" href="https://twitter.com/' . $twitter_user . '?lang=es" target="_blank"><span></span></a>
+    </li>';
+  }
+
+if ( !empty( $facebook_user ) ) {
+    $output .=
+    '<li>
+      <a class="link-facebook" title="Facebook" href="' . $facebook_user . '" target="_blank"><span></span></a>
+    </li>';
+  }
+
+  if ( !empty( $google_user ) ) {
+    $output .=
+    '<li>
+      <a class="link-googleplus" title="Google+" href="' . $google_user . '" target="_blank"><span></span></a>
+    </li>';
+  }
+
+  $output .= '</ul></div>';
+
+  echo 'RRSS ' . $output;
+
+}
+add_action( 'bp_after_member_header', 'ShowRRSS', 11, 1 );
+
+
+/**
  * Show medals for assistance number.
  * 
  * @return html
@@ -113,7 +157,7 @@ function ShowAssistanceMedals()
  
     echo $output;
 }
-add_action( 'bp_after_member_header', 'ShowAssistanceMedals', 10, 1 );
+add_action( 'bp_after_member_header', 'ShowAssistanceMedals', 12, 1 );
 
 
 /**
@@ -137,7 +181,8 @@ function ActionsMedals()
     $count++;
   }
   if ( $group_count ) {
-    $group = '| Pertenece a ' . $group_count . ' grupos';
+    $username = bp_core_get_username($user);
+    $group = '<a id="user-groups" href="/miembros/'.$username.'/groups/">| Pertenece a ' . $group_count . ' grupos</a>';
     $count++;
   }
 
@@ -148,7 +193,7 @@ function ActionsMedals()
  
     echo $output;
 }
-add_action( 'bp_after_member_header', 'ActionsMedals', 12, 1 );
+add_action( 'bp_after_member_header', 'ActionsMedals', 13, 1 );
 
 
 /**
@@ -160,37 +205,65 @@ function ShowTwitterTimeline()
 {
   // Gets some values
   $twitter_user   = xprofile_get_field_data( 'Usuario de Twitter', bp_displayed_user_id() );
-//   $twitter_widget = xprofile_get_field_data( 'Widget ID', bp_displayed_user_id() );
-//   // Extract widget ID from string
-//   $widget_pre_id  = strstr($twitter_widget,'data-widget-id="');
-//   // Create a function for extract only numbers
-//   function get_numerics ($str) {
-//     preg_match_all('/\d+/', $str, $matches);
-//     return $matches[0];
-//   }
-
-//   $widget_post_id = get_numerics( $widget_pre_id );
-//   $widget_id      = $widget_post_id[0];
-  $widget_id = '613998165432365057'; // Por lo visto funciona si a todos les pongo mi Wigdet ID Tócate los huevos.
-  // Make the output
-  $output = '<a class="twitter-timeline"
-            href="https://twitter.com/' . $twitter_user . '"
-            data-widget-id="' . $widget_id . '"
-            data-screen-name="' . $twitter_user . '"
-            data-chrome="nofooter noborders"
-            width="500"
-            height="300">
-            Tweets de @' . $twitter_user . '
-            </a>';
-
-  $output .= '<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?\'http\':\'https\';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>';
-  // Show the output
   if ( !empty( $twitter_user ) ) {
-    echo '<div class="timeline-user-twitter">'.$output.'</div><div class="clear"></div>';
-  }
+  //  $twitter_widget = xprofile_get_field_data( 'Widget ID', bp_displayed_user_id() );
+  //  // Extract widget ID from string
+  //  $widget_pre_id  = strstr($twitter_widget,'data-widget-id="');
+  //  // Create a function for extract only numbers
+  //  function get_numerics ($str) {
+  //    preg_match_all('/\d+/', $str, $matches);
+  //    return $matches[0];
+  //  }
+
+  //  $widget_post_id = get_numerics( $widget_pre_id );
+  //  $widget_id      = $widget_post_id[0];
+    $widget_id = '613998165432365057'; // Por lo visto funciona si a todos les pongo mi Wigdet ID. Tócate los huevos.
+    // Make the output
+    $output = '<a class="twitter-timeline"
+              href="https://twitter.com/' . $twitter_user . '"
+              data-widget-id="' . $widget_id . '"
+              data-screen-name="' . $twitter_user . '"
+              data-chrome="nofooter noborders"
+              width="250"
+              height="300">
+              Tweets de @' . $twitter_user . '
+              </a>';
+
+    $output .= '<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?\'http\':\'https\';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>';
+    // Show the output
+    echo '<div class="timeline-user-twitter">'.$output.'</div>';
+  } // end if
+}
+add_action( 'bp_after_member_header', 'ShowTwitterTimeline', 14, 1 );
+
+
+
+/**
+ * Show Twitter timeline
+ *
+ * @return html
+ */
+function ShowRssBlog()
+{
+  // Gets some values
+  $rss = xprofile_get_field_data( 'RSS', bp_displayed_user_id() );
+  
+  // Make the HTML
+  $output = '<div id="blog" class="rss-blog">';
+  $output .= '<h3 class="rss-header-title">Lector de RSS</h3>';
+  $output .= '<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+              <script type="text/javascript" src="' . get_stylesheet_directory_uri() . '/js/lectordefeed.js"></script>
+              <script type="text/javascript">
+                new rssdisplayer("msndiv", "' . $rss . '", 4, "date, description")
+              </script>';
+  $output .= '</div><div class="clear"></div>';
+
+  // Show the output
+  echo $output;
   
 }
-add_action( 'bp_after_member_header', 'ShowTwitterTimeline', 15, 1 );
+add_action( 'bp_after_member_header', 'ShowRssBlog', 15, 1 );
+
 
 
 /**

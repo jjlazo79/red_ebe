@@ -28,20 +28,76 @@ You're the boss, so have fun editing!
 .center {
 	text-align: center;
 }
+/*Oscurecer las imágenes de los sliders*/
 #fwslider .slide img {
 	opacity: 0.5;
 }
-.timeline-user-twitter {
+/*Cajas de RSS y Timeline*/
+.timeline-user-twitter,
+.rss-blog {
 	float:right;
 	border: solid 1px #51c8ea;
+	margin-left: 10px;
+	max-width: 250px;
+    max-height: 300px;
+    overflow-x: scroll;
 }
+#msndiv li {
+    max-width: 100%;
+}
+/*Espacio para las medallas y redes sociales*/
 .cover-photo-on.bp-user #buddypress div#item-nav, body.groups.cover-photo-on #buddypress div#item-nav {
-    top: 320px;
+    top: 370px;
 }
+/*Medallas*/
 .actionsmedals {
     margin-bottom: 10px;
 }
-
+/*Redes sociales*/
+ #buddypress div#item-header ul.social-icons span {
+ 	display: block;
+ 	background-color: #51c8ea;
+ 	border-radius: 100%;
+}
+div.profile-icons ul.social-icons {
+	float: left;
+}
+div.profile-icons ul.social-icons li a {
+    display: block;
+    color: rgba(25, 25, 25, 0.8);
+    text-align: center;
+    text-decoration: none;
+    line-height: 36px;
+    min-height: 36px;
+    min-width: 36px;
+    margin: 4px;
+    padding: 0px;
+    border-radius: 18px;
+}
+div.profile-icons ul.social-icons li {
+    display: inline-block;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+div.profile-icons ul.social-icons li span:before {
+    font-family: 'FontAwesome';
+    font-weight: normal;
+    font-style: normal;
+    text-rendering: auto;
+    text-decoration: inherit;
+    speak: none;
+    display: inline-block;
+    -webkit-font-smoothing: antialiased;
+    font-size: 14px;
+    vertical-align: middle;
+}
+/*Lector de RSS*/
+.rss-header-title {
+    line-height: 24px;
+    color: #292F33;
+    text-align: center;
+}
 
 
 /*--------------------------------------------------------------
