@@ -23,7 +23,13 @@ You're the boss, so have fun editing!
 1.0 - Global Styles
 --------------------------------------------------------------*/
 
-
+/*
+Brand book
+@yellow: #FFCC27;
+@pink: #D6418A;
+@blue: #51C8EA;
+@green:#A3E05E;
+*/
 
 .center {
 	text-align: center;
@@ -49,6 +55,11 @@ You're the boss, so have fun editing!
 }
 #msndiv li {
     max-width: 100%;
+}
+.rss-header-title {
+    line-height: 24px;
+    color: #292F33;
+    text-align: center;
 }
 /*Espacio para las medallas y redes sociales*/
 .cover-photo-on.bp-user #buddypress div#item-nav, body.groups.cover-photo-on #buddypress div#item-nav {
@@ -97,11 +108,13 @@ div.profile-icons ul.social-icons li span:before {
     font-size: 14px;
     vertical-align: middle;
 }
-/*Lector de RSS*/
-.rss-header-title {
-    line-height: 24px;
-    color: #292F33;
-    text-align: center;
+/*Lector de RSS de la home*/
+.my-grid-rss .listing-item {
+    border-bottom: solid 2px #51C8EA;
+    margin: 25px auto;
+}
+.my-grid-rss .listing-item > a {
+    font-size: 1.4em;
 }
 
 
@@ -160,6 +173,9 @@ div.profile-icons ul.social-icons li span:before {
 	.right-content {
 		width: 45%;
 		float: right;
+	}
+	.my-grid-rss .listing-item > a {
+    	font-size: 2em;
 	}
 
 

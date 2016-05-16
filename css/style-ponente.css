@@ -1,3 +1,22 @@
 /*
 Ponente styles
 */
+/*
+Brand book
+@yellow: #FFCC27;
+@pink: #D6418A;
+@blue: #51C8EA;
+@green:#A3E05E;
+*/
+.bp-user.buddypress #buddypress a {
+	color: #A3E05E;
+}
+.bp-user.buddypress .timeline-user-twitter, .bp-user.buddypress .rss-blog {
+	border: solid 1px #A3E05E;
+}
+.bp-user.buddypress #buddypress div#item-nav .item-list-tabs ul li a span {
+	background-color: #A3E05E;
+}
+.bp-user.buddypress #buddypress div#item-nav .item-list-tabs ul li a:hover span {
+    background-color: #0f3647;
+}
