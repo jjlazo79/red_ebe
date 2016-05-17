@@ -8,12 +8,12 @@ Brand book
 @blue: #51C8EA;
 @green:#A3E05E;
 */
-.bp-user.buddypress #buddypress a {
+/*.bp-user.buddypress #buddypress a {
 	color: #D6418A;
 }
 .bp-user.buddypress .timeline-user-twitter, .bp-user.buddypress .rss-blog {
 	border: solid 1px #D6418A;
 }
-/*.bp-user.buddypress #buddypress div#item-header ul.social-icons span {
+.bp-user.buddypress #buddypress div#item-header ul.social-icons span {
 	background-color: #D6418A;
 }*/

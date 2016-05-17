@@ -52,15 +52,15 @@ function buddyboss_child_scripts_styles()
   /*
    * Conditional styles for Ponentes and Coordinadores
    */
-  $perfil  = xprofile_get_field_data( 'perfil', bp_displayed_user_id(), $multi_format = 'comma' );
+  // $perfil  = xprofile_get_field_data( 'perfil', bp_displayed_user_id(), $multi_format = 'comma' );
 
-  if ( $perfil == 'Ponente' ) {
-    wp_enqueue_style( 'buddyboss-child-ponente', get_stylesheet_directory_uri().'/css/style-ponente.css' );
+  // if ( $perfil == 'Ponente' ) {
+  //   wp_enqueue_style( 'buddyboss-child-ponente', get_stylesheet_directory_uri().'/css/style-ponente.css' );
 
-  } elseif ( $perfil == 'Coordinador' ) {
-    wp_enqueue_style( 'buddyboss-child-coordinador', get_stylesheet_directory_uri().'/css/style-coordinador.css' );
+  // } elseif ( $perfil == 'Coordinador' ) {
+  //   wp_enqueue_style( 'buddyboss-child-coordinador', get_stylesheet_directory_uri().'/css/style-coordinador.css' );
 
-  }
+  // }
 
 }
 add_action( 'wp_enqueue_scripts', 'buddyboss_child_scripts_styles', 9999 );
@@ -126,7 +126,7 @@ if ( !empty( $facebook_user ) ) {
 
   $output .= '</ul></div>';
 
-  echo 'RRSS ' . $output;
+  echo $output;
 
 }
 add_action( 'bp_after_member_header', 'ShowRRSS', 11, 1 );
@@ -293,3 +293,95 @@ function my_login_redirect( $redirect_to, $request, $user ) {
   }
 }
 add_filter( 'login_redirect', 'my_login_redirect', 10, 3 );
+
+
+
+/**
+ * Modify fields in the register, in the login and profile
+ *
+ * @return string
+ */
+function bpfilter_hide_profile_edit( $retval ) {    
+    // remove field from edit tab
+    if(  bp_is_profile_edit() ) {        
+        $retval['exclude_fields'] = '6'; // field ID's separated by comma
+    }    
+    // remove field on register page
+    if ( bp_is_register_page() ) {
+        $retval['exclude_fields'] = '6'; // field ID's separated by comma
+        }        
+
+    // show the field on profile view tab
+    if ( $data = bp_get_profile_field_data( 'field=6' ) ) : 
+        $retval['include_fields'] = '6'; // field ID's separated by comma    
+    endif;    
+
+    return $retval;    
+}
+add_filter( 'bp_after_has_profile_parse_args', 'bpfilter_hide_profile_edit' );
+
+
+function BannerProfile() {
+  // Get some values
+  $perfil  = xprofile_get_field_data( 'perfil', bp_displayed_user_id(), $multi_format = 'comma' );
+  // Do actions
+  if ( $perfil == 'Coordinador' ) {
+    echo '<div style="
+    position: absolute;
+    right: 0;
+    z-index: 999;
+    background: #D6418A;
+    width: 165px;
+    height: 25px;
+    color: black;
+    text-align: center;
+    font-size: 1.3em;
+    font-weight: bolder;
+    ">Coordinador</div>';
+
+  } elseif ( $perfil == 'Ponente' ) {
+    // Do stuff
+    echo '<div style="
+    position: absolute;
+    right: 0;
+    z-index: 999;
+    background: #FFCC27;
+    width: 165px;
+    height: 25px;
+    color: black;
+    text-align: center;
+    font-size: 1.3em;
+    font-weight: bolder;
+    ">Ponente</div>';
+
+  } elseif ( $perfil == 'Asistente' ) {
+    echo '<div style="
+    position: absolute;
+    right: 0;
+    z-index: 999;
+    background: #A3E05E;
+    width: 165px;
+    height: 25px;
+    color: black;
+    text-align: center;
+    font-size: 1.3em;
+    font-weight: bolder;
+    ">Asistente</div>';
+
+  } elseif ( $perfil == 'Miembro' ) {
+    echo '<div style="
+    position: absolute;
+    right: 0;
+    z-index: 999;
+    background: #51C8EA;
+    width: 165px;
+    height: 25px;
+    color: black;
+    text-align: center;
+    font-size: 1.3em;
+    font-weight: bolder;
+    ">Miembro</div>';
+
+  }
+}
+add_action( 'bp_before_member_header', 'BannerProfile', 10, 0 );
