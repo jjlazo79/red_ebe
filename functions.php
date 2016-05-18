@@ -283,7 +283,7 @@ function my_login_redirect( $redirect_to, $request, $user ) {
       return $redirect_to;
 
     } else {
-      return home_url();
+      return 'http://red.eventoblog.com/';//home_url();
 
     }
 
@@ -321,66 +321,58 @@ function bpfilter_hide_profile_edit( $retval ) {
 add_filter( 'bp_after_has_profile_parse_args', 'bpfilter_hide_profile_edit' );
 
 
+/**
+ * Add conditional banner into profile cover image
+ *
+ * @return string
+ */
+function your_theme_xprofile_cover_image( $settings = array() ) {
+  // Get some values
+  $perfil  = xprofile_get_field_data( 'perfil', bp_displayed_user_id(), $multi_format = 'comma' );
+
+  // Do actions
+  if ( $perfil == 'Coordinador' ) {
+    $settings['default_cover'] = site_url().'/wp-content/uploads/2016/05/coordinador.jpg';
+
+  } elseif ( $perfil == 'Ponente' ) {
+    $settings['default_cover'] = site_url().'/wp-content/uploads/2016/05/ponentes.jpg';
+
+  } elseif ( $perfil == 'Asistente' ) {
+    $settings['default_cover'] = site_url().'/wp-content/uploads/2016/05/asistente.jpg';
+
+  } elseif ( $perfil == 'Miembro' ) {
+    $settings['default_cover'] = site_url().'/wp-content/uploads/2016/05/miembro.jpg';
+
+  }// End if/else
+  
+  return $settings;
+}
+add_filter( 'bp_before_xprofile_cover_image_settings_parse_args', 'your_theme_xprofile_cover_image', 10, 1 );
+
+
+
+/**  
+ * 
+ * Add conditional banner into profile 
+ *
+ * @return html
+ */
 function BannerProfile() {
   // Get some values
   $perfil  = xprofile_get_field_data( 'perfil', bp_displayed_user_id(), $multi_format = 'comma' );
   // Do actions
   if ( $perfil == 'Coordinador' ) {
-    echo '<div style="
-    position: absolute;
-    right: 0;
-    z-index: 999;
-    background: #D6418A;
-    width: 165px;
-    height: 25px;
-    color: black;
-    text-align: center;
-    font-size: 1.3em;
-    font-weight: bolder;
-    ">Coordinador</div>';
+    echo '<div class="minibanner">Coordinador</div>';
 
   } elseif ( $perfil == 'Ponente' ) {
     // Do stuff
-    echo '<div style="
-    position: absolute;
-    right: 0;
-    z-index: 999;
-    background: #FFCC27;
-    width: 165px;
-    height: 25px;
-    color: black;
-    text-align: center;
-    font-size: 1.3em;
-    font-weight: bolder;
-    ">Ponente</div>';
+    echo '<div class="minibanner">Ponente</div>';
 
   } elseif ( $perfil == 'Asistente' ) {
-    echo '<div style="
-    position: absolute;
-    right: 0;
-    z-index: 999;
-    background: #A3E05E;
-    width: 165px;
-    height: 25px;
-    color: black;
-    text-align: center;
-    font-size: 1.3em;
-    font-weight: bolder;
-    ">Asistente</div>';
+    echo '<div class="minibanner">Asistente</div>';
 
   } elseif ( $perfil == 'Miembro' ) {
-    echo '<div style="
-    position: absolute;
-    right: 0;
-    z-index: 999;
-    background: #51C8EA;
-    width: 165px;
-    height: 25px;
-    color: black;
-    text-align: center;
-    font-size: 1.3em;
-    font-weight: bolder;
-    ">Miembro</div>';
+    echo '<div class="minibanner">Miembro</div>';
 
   }
 }

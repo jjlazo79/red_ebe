@@ -14,10 +14,10 @@ You're the boss, so have fun editing!
 ----------------------------------------------------------------
 1.0 - Global Styles
 2.0 - Responsive media queries (mobile styles)
-	2.1 - MAXIMUM width of 720 pixels (phones landscape)
-	2.2 - MAXIMUM width of 380 pixels (phones portrait)
-	2.3 - MINIMUM width of 721 pixels (tablets+)
-	2.4 - MINIMUM width of 1040 pixels (desktops and laptops)
+    2.1 - MAXIMUM width of 720 pixels (phones landscape)
+    2.2 - MAXIMUM width of 380 pixels (phones portrait)
+    2.3 - MINIMUM width of 721 pixels (tablets+)
+    2.4 - MINIMUM width of 1040 pixels (desktops and laptops)
 --------------------------------------------------------------*/
 /*--------------------------------------------------------------
 1.0 - Global Styles
@@ -32,7 +32,7 @@ Brand book
 */
 
 .center {
-	text-align: center;
+    text-align: center;
 }
 /*Login con redes sociales*/
 .oneall_social_login {
@@ -41,7 +41,7 @@ Brand book
 }
 /*Oscurecer las imágenes de los sliders*/
 #fwslider .slide img {
-	opacity: 0.5;
+    opacity: 0.5;
 }
 #fwslider .slide_content_wrap {
     margin-left: 0;
@@ -50,10 +50,10 @@ Brand book
 /*Cajas de RSS y Timeline*/
 .timeline-user-twitter,
 .rss-blog {
-	float:right;
-	border: solid 1px #51c8ea;
-	margin-left: 10px;
-	max-width: 250px;
+    float:right;
+    border: solid 1px #51c8ea;
+    margin-left: 10px;
+    max-width: 250px;
     max-height: 300px;
     overflow-x: scroll;
 }
@@ -75,12 +75,12 @@ Brand book
 }
 /*Redes sociales*/
  #buddypress div#item-header ul.social-icons span {
- 	display: block;
- 	background-color: #51c8ea;
- 	border-radius: 100%;
+    display: block;
+    background-color: #51c8ea;
+    border-radius: 100%;
 }
 div.profile-icons ul.social-icons {
-	float: left;
+    float: left;
 }
 div.profile-icons ul.social-icons li a {
     display: block;
@@ -112,6 +112,18 @@ div.profile-icons ul.social-icons li span:before {
     font-size: 14px;
     vertical-align: middle;
 }
+/*Minibanner del perfil*/
+.minibanner {
+    position: absolute;
+    right: 0;
+    z-index: 999;
+    width: 165px;
+    height: 25px;
+    color: black;
+    text-align: center;
+    font-size: 1.3em;
+    font-weight: bolder;
+}
 /*Lector de RSS de la home*/
 .my-grid-rss .listing-item {
     border-bottom: solid 2px #51C8EA;
@@ -131,9 +143,9 @@ div.profile-icons ul.social-icons li span:before {
 @media screen and (max-width: 720px) {
 
 
-	.assistance {
-	    margin-top: 2%;
-	}
+    .assistance {
+        margin-top: 2%;
+    }
 
 
 }/* don't delete this closing bracket */
@@ -148,10 +160,10 @@ div.profile-icons ul.social-icons li span:before {
 @media screen and (max-width: 380px) {
 
 
-	#fwslider .slide_content_wrap {
-	    margin-left: 0;
-	    margin-top: 0;
-	}
+    #fwslider .slide_content_wrap {
+        margin-left: 0;
+        margin-top: 0;
+    }
 
 
 }/* don't delete this closing bracket */
@@ -166,20 +178,23 @@ div.profile-icons ul.social-icons li span:before {
 @media screen and (min-width: 721px)  {
 
 
-	.center-content {
-		width: 100%;
-	}
-	.left-content {
-		width: 45%;
-		float: left;
-	}
-	.right-content {
-		width: 45%;
-		float: right;
-	}
-	.my-grid-rss .listing-item > a {
-    	font-size: 2em;
-	}
+    .center-content {
+        width: 100%;
+    }
+    .left-content {
+        width: 45%;
+        float: left;
+    }
+    .right-content {
+        width: 45%;
+        float: right;
+    }
+    .my-grid-rss .listing-item > a {
+        font-size: 2em;
+    }
+    .minibanner {
+        display: none;
+    }
 
 
 }/* don't delete this closing bracket */
@@ -195,10 +210,10 @@ div.profile-icons ul.social-icons li span:before {
 
 
 
-	#fwslider .slide_content_wrap {
-	    margin-left: 0;
-	    margin-top: 15%;
-	}
+    #fwslider .slide_content_wrap {
+        margin-left: 0;
+        margin-top: 15%;
+    }
 
 
 }/* don't delete this closing bracket */
